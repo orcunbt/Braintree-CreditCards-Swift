@@ -15,8 +15,9 @@ class ViewController: UIViewController {
     var nonce: String = ""
     
     @IBOutlet weak var cardNumberTextField: UITextField!
-    @IBOutlet weak var expiryTextField: UITextField!
     @IBOutlet weak var cvvTextField: UITextField!
+    @IBOutlet weak var expiryMonthTextField: UITextField!
+    @IBOutlet weak var expiryYearTextField: UITextField!
     
 
     override func viewDidLoad() {
@@ -33,7 +34,7 @@ class ViewController: UIViewController {
         
         let braintreeClient = BTAPIClient(authorization: "sandbox_tpt8mgp5_26qns4ycnjgrr6cv")!
         let cardClient = BTCardClient(APIClient: braintreeClient)
-        let card = BTCard(number: "4111111111111111", expirationMonth: "12", expirationYear: "2018", cvv: nil)
+        let card = BTCard(number: cardNumberTextField.text!, expirationMonth: expiryMonthTextField.text!, expirationYear: expiryYearTextField.text!, cvv: cvvTextField.text!)
         cardClient.tokenizeCard(card) { (tokenizedCard, error) in
             // Communicate the tokenizedCard.nonce to your server, or handle error
             
